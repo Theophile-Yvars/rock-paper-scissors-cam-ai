@@ -1,0 +1,29 @@
+# Environnement virtuel
+venv/
+.env/
+.envrc
+
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+*.so
+
+# Données et modèles
+data/
+model/
+*.joblib
+*.pkl
+*.csv
+
+# Logs
+*.log
+
+# Jupyter notebooks checkpoint
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/
+
+# OS spécifiques
+.DS_Store
+Thumbs.db
