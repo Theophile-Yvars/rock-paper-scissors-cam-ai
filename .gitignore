@@ -9,11 +9,11 @@ __pycache__/
 *.so
 
 # Données et modèles
-data/
+#data/
 model/
 *.joblib
 *.pkl
-*.csv
+#*.csv
 
 # Logs
 *.log
