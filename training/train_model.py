@@ -2,8 +2,11 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import csv
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 x_train = []
 y_train = []
@@ -65,3 +68,20 @@ history = model.fit(
 # Évaluation sur les données de test
 loss, accuracy = model.evaluate(x_test, y_test)
 print(f"✅ Test accuracy: {accuracy:.2%}")
+
+# Prédiction des classes sur les données de test
+y_pred_probs = model.predict(x_test)
+y_pred = np.argmax(y_pred_probs, axis=1)
+
+# Matrice de confusion
+cm = confusion_matrix(y_test, y_pred)
+labels = label_encoder.classes_
+
+# Affichage
+plt.figure(figsize=(6, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=labels, yticklabels=labels)
+plt.xlabel("Prédit")
+plt.ylabel("Vrai")
+plt.title("Matrice de confusion")
+plt.tight_layout()
+plt.show()
