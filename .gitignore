@@ -10,7 +10,7 @@ __pycache__/
 
 # Données et modèles
 #data/
-model/
+models/
 *.joblib
 *.pkl
 #*.csv

@@ -3,6 +3,7 @@ from tensorflow.keras import layers
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import classification_report
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,7 +30,9 @@ dataCollect('data/pierre_data.csv','pierre')
 dataCollect('data/ciseau_data.csv','ciseau')
 
 label_encoder = LabelEncoder()
+print("LABEL : ", y_train)
 y_train = label_encoder.fit_transform(y_train)
+print("LABEL : ", y_train)
 
 x_train, x_test, y_train, y_test = train_test_split(
     x_train, y_train, test_size=0.2, random_state=42, stratify=y_train
@@ -73,9 +76,14 @@ print(f"✅ Test accuracy: {accuracy:.2%}")
 y_pred_probs = model.predict(x_test)
 y_pred = np.argmax(y_pred_probs, axis=1)
 
+model.save("models/gesture_model.h5")
+
 # Matrice de confusion
 cm = confusion_matrix(y_test, y_pred)
 labels = label_encoder.classes_
+
+print("\n🧾 Rapport de classification :\n")
+print(classification_report(y_test, y_pred, target_names=labels))
 
 # Affichage
 plt.figure(figsize=(6, 4))
