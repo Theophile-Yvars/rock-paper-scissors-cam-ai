@@ -1,6 +1,7 @@
 // src/WebcamCapture.tsx
 import React, { useRef, useEffect } from 'react';
 import axios from 'axios';
+import './WebcamCapture.css'
 
 const WebcamCapture = () => {
   const videoRef = useRef<HTMLVideoElement>(null);

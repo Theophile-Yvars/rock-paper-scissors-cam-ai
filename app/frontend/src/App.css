@@ -1,6 +1,13 @@
 .App {
   text-align: center;
+  background-image: url('../public/assets/fond5.jpg');
+  background-size: cover;           /* Étire ou réduit l'image pour remplir */
+  background-position: center;      /* Centre l'image */
+  background-repeat: no-repeat;     /* Ne pas répéter l'image */
+  min-height: 100vh;                /* S'assurer que le fond couvre toute la hauteur */
+  font-family: system-ui;
 }
+
 
 .App-content{
   display: flex;
@@ -8,7 +15,7 @@
   align-items: center;
   justify-content: center;
   gap: 150px;
-  background-color: #DDECEE;
+  /*background-color: #DDECEE;*/
   padding-bottom: 20px;
   padding-top: 20px;
   margin-left: 20px;
@@ -17,9 +24,42 @@
 }
 
 .App-ai{
-
+  width: 50%;
 }
 
 .App-player{
+  width: 50%;
+}
 
+.App-versus{
+
+}
+
+.App-title{
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+  padding-bottom: 11px;
+  background-color: #11354D;
+  color: white;
+}
+
+.App-title-button {
+    width: 70px;
+    height: 70px;
+    font-weight: bold;
+    background-color: #F6EBDB;
+    border-radius: 10px;
+    color: #A91E23;
+    box-shadow: 4px 4px 12px rgba(246, 235, 219, 1); /* 👈 ombrage ici */
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    border: none;
+}
+
+.App-title-button:hover {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 1); /* 👈 ombrage au survol */
 }

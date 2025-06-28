@@ -1,16 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './AIAvatar.css'
 
-interface AIAvatarProps {
-  choice: 'pierre' | 'feuille' | 'ciseau' | null;
-}
 
-const emojiMap: Record<string, string> = {
-  pierre: '🪨',
-  feuille: '📄',
-  ciseau: '✂️',
-};
-
-const AIAvatar: React.FC<AIAvatarProps> = ({ choice }) => {
+const AIAvatar = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -27,11 +19,9 @@ const AIAvatar: React.FC<AIAvatarProps> = ({ choice }) => {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className="aiavatar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div
         style={{
-          width: 128,
-          height: 128,
           border: '2px solid #1e293b',
           borderRadius: 12,
           overflow: 'hidden',
@@ -42,7 +32,7 @@ const AIAvatar: React.FC<AIAvatarProps> = ({ choice }) => {
         }}
       >
         <img
-          src="/assets/opponent-picture.png" // doit être dans le dossier `public/assets`
+          src="/assets/avatar.jpg" // doit être dans le dossier `public/assets`
           alt="AI Adversary"
           style={{
             transform: `translate(${position.x}px, ${position.y}px)`,
@@ -52,11 +42,6 @@ const AIAvatar: React.FC<AIAvatarProps> = ({ choice }) => {
           }}
         />
       </div>
-      {choice && (
-        <div style={{ marginTop: 8, fontSize: '2rem' }}>
-          {emojiMap[choice]}
-        </div>
-      )}
     </div>
   );
 };

@@ -14,15 +14,37 @@ function App() {
     setAiChoice(randomChoice);
   };
 
+  const emojiMap: Record<'pierre' | 'feuille' | 'ciseau', string> = {
+      pierre: '🪨',
+      feuille: '📄',
+      ciseau: '✂️',
+    };
+
+
   return (
     <div className="App">
         <div className="App-title">
-            <h1>ROCK PAPER SCISSORS BATTLE</h1>
+            <h1>Rock Paper Scissors Battle</h1>
+                <button className="App-title-button" onClick={handleAIPlay} style={{ marginTop: 12 }}>
+                    GO
+                </button>
         </div>
         <div className="App-content">
             <div className="App-ai">
-                <AIAvatar choice={aiChoice} />
-                <button onClick={handleAIPlay}>Lancer l'IA</button>
+                <AIAvatar />
+            </div>
+            <div className="App-versus">
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div style={{ marginTop: 8, fontSize: '2rem' }}>
+                    {aiChoice ? emojiMap[aiChoice] : '❓'}
+                  </div>
+                </div>
+                <div>
+                    <h2>VS</h2>
+                </div>
+                <div>
+
+                </div>
             </div>
             <div className="App-player">
                 <WebcamCapture />
