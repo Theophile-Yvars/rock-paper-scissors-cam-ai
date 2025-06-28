@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.App-content{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 150px;
+  background-color: #DDECEE;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 20px;
+}
+
+.App-ai{
+
+}
+
+.App-player{
+
+}
