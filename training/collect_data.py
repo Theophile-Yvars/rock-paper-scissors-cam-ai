@@ -47,7 +47,7 @@ if image is not None:
         if st.button("💾 Enregistrer ce geste"):
             data = extract_hand_landmarks(results)
             df = pd.DataFrame([data])
-            filename = f"data/{gesture}_data.csv"
+            filename = f"../data/{gesture}_data.csv"
 
             # Append au fichier existant ou créer
             if os.path.exists(filename):

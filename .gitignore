@@ -10,7 +10,7 @@ __pycache__/
 
 # Données et modèles
 #data/
-model/
+#models/
 *.joblib
 *.pkl
 #*.csv
@@ -27,3 +27,5 @@ model/
 # OS spécifiques
 .DS_Store
 Thumbs.db
+
+.env310
