@@ -13,69 +13,33 @@ Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur p
 - **Collecte de données** : Interface Streamlit pour entraîner le modèle
 - **Machine Learning** : Réseau de neurones TensorFlow pour la classification
 
-## 🏗️ Architecture
-
-Le projet est structuré en plusieurs composants :
-
-```
-rock-paper-scissors-cam-ai/
-├── app/
-│   ├── backend/          # API FastAPI
-│   │   ├── main.py       # Serveur API
-│   │   └── classifier.py # Classification des gestes
-│   └── frontend/         # Interface React
-│       └── src/
-├── training/             # Entraînement du modèle
-│   ├── collect_data.py   # Collecte de données
-│   └── train_model.py    # Entraînement
-├── models/               # Modèles entraînés
-├── data/                 # Données d'entraînement
-└── assets/              # Ressources multimédia
-```
-
 ## 🚀 Installation
 
 ### Prérequis
 
-- Python 3.8+
+- Python 3.10
 - Node.js 16+
 - npm ou yarn
 - Webcam fonctionnelle
-
-### Installation des dépendances
-
-#### Backend Python
-```powershell
-# Installer les dépendances Python
-pip install -r requirements.txt
-```
-
-#### Frontend React
-```powershell
-# Naviguer vers le frontend
-cd app/frontend
-
-# Installer les dépendances Node.js
-npm install
-```
+- Docker
 
 ## 🎮 Utilisation
 
-### 1. Collecte de données (optionnel)
+### 1. Collecte de données
 
 Pour améliorer le modèle avec vos propres données :
 
 ```powershell
 # Lancer l'interface de collecte
 cd training
-streamlit run collect_data.py
+.\run_collect_data.bat
 ```
 
 - Sélectionnez le geste à enregistrer (pierre, feuille, ciseau)
 - Montrez votre geste devant la webcam
 - Cliquez sur "Enregistrer" pour sauvegarder
 
-### 2. Entraînement du modèle (optionnel)
+### 2. Entraînement du modèle
 
 ```powershell
 # Entraîner le modèle avec les nouvelles données
@@ -83,23 +47,20 @@ cd training
 python train_model.py
 ```
 
-### 3. Lancement de l'application
+### 3. Visualisation du model
 
-#### Démarrer le backend
 ```powershell
-# Terminal 1 : API Backend
-cd app/backend
-uvicorn main:app --reload
+cd models
+.\run_test_model.bat
 ```
-L'API sera disponible sur `http://localhost:8000`
 
-#### Démarrer le frontend
-```powershell
-# Terminal 2 : Interface utilisateur
-cd app/frontend
-npm start
+### 4. Lancement de l'application 
+
+```bash
+cd app
+./build-all.sh
+docker compose up
 ```
-L'application sera disponible sur `http://localhost:3000`
 
 ## 🎲 Comment jouer
 
@@ -135,17 +96,6 @@ Le modèle est entraîné sur :
 - **Division** : 80% entraînement / 20% validation
 - **Augmentation** : Collecte interactive via Streamlit
 
-## 🛠️ Technologies utilisées
-
-| Composant | Technologie |
-|-----------|-------------|
-| **Vision** | MediaPipe |
-| **IA** | TensorFlow, Keras |
-| **Backend** | FastAPI, uvicorn |
-| **Frontend** | React 19, TypeScript |
-| **Collecte** | Streamlit |
-| **Processing** | OpenCV, NumPy |
-| **Data Science** | scikit-learn, pandas |
 
 ## 🔧 Développement
 
@@ -155,48 +105,5 @@ Le modèle est entraîné sur :
 - `POST /predict` : Upload d'image pour prédiction de geste
   - Input : multipart/form-data avec fichier image
   - Output : `{"gesture": "pierre|feuille|ciseau"}`
-
-### Scripts utiles
-
-```powershell
-# Tests du modèle
-cd models
-python test_model.py
-
-# Build frontend pour production
-cd app/frontend
-npm run build
-
-# Lancer les tests frontend
-npm test
-```
-
-## 📝 Améliorations possibles
-
-- [ ] Multijoueur en ligne
-- [ ] Historique des parties
-- [ ] Statistiques de performance
-- [ ] Amélioration de la précision du modèle
-- [ ] Support multi-langues
-- [ ] Mode tournoi
-- [ ] Gestes personnalisés
-
-## 🤝 Contribution
-
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrir une Pull Request
-
-## 📄 License
-
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
-## 📞 Contact
-
-Si vous avez des questions ou suggestions, n'hésitez pas à ouvrir une issue ou me contacter.
-
----
 
 ⭐ **N'oubliez pas de mettre une étoile si ce projet vous a plu !** ⭐
