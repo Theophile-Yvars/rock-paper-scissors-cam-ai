@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-classifier = Classifier("../../models/gesture_model.h5")
+classifier = Classifier("gesture_model.h5")
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):

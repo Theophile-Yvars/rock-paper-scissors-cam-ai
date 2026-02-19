@@ -16,7 +16,7 @@ RTC_CONFIGURATION = RTCConfiguration(
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 CLASS_NAMES = ["ciseau", "feuille", "pierre"]
-MODEL_PATH = "models/gesture_model.h5"
+MODEL_PATH = "gesture_model.h5"
 
 # Chargement du modèle
 model = tf.keras.models.load_model(MODEL_PATH) if os.path.exists(MODEL_PATH) else None
@@ -56,7 +56,7 @@ class HandProcessor(VideoProcessorBase):
         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
 # Interface
-st.title("✋ Détection de geste en temps réel")
+st.title("Détection de geste en temps réel")
 
 ctx = webrtc_streamer(
     key="gesture",

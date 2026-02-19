@@ -25,9 +25,9 @@ def dataCollect(filename, label):
             x_train.append(dataFloat)
             y_train.append(label)
 
-dataCollect('data/feuille_data.csv','feuille')
-dataCollect('data/pierre_data.csv','pierre')
-dataCollect('data/ciseau_data.csv','ciseau')
+dataCollect('../data/feuille_data.csv','feuille')
+dataCollect('../data/pierre_data.csv','pierre')
+dataCollect('../data/ciseau_data.csv','ciseau')
 
 label_encoder = LabelEncoder()
 print("LABEL : ", y_train)
@@ -45,16 +45,17 @@ y_test = np.array(y_test)
 
 model = keras.Sequential([
     layers.Dense(1024, activation='relu', input_shape=[63]),
-    layers.Dropout(0.3),
     layers.BatchNormalization(),
+    layers.Dropout(0.3),
     layers.Dense(1024, activation='relu'),
-    layers.Dropout(0.3),
     layers.BatchNormalization(),
+    layers.Dropout(0.3),
     layers.Dense(1024, activation='relu'),
-    layers.Dropout(0.3),
     layers.BatchNormalization(),
+    layers.Dropout(0.3),
     layers.Dense(3, activation='softmax'),
 ])
+
 model.compile(
     optimizer='adam',
     loss='sparse_categorical_crossentropy',  # ← adaptée à des labels entiers (0,1,2)
@@ -76,7 +77,7 @@ print(f"✅ Test accuracy: {accuracy:.2%}")
 y_pred_probs = model.predict(x_test)
 y_pred = np.argmax(y_pred_probs, axis=1)
 
-model.save("models/gesture_model.h5")
+model.save("../models/gesture_model.h5")
 
 # Matrice de confusion
 cm = confusion_matrix(y_test, y_pred)

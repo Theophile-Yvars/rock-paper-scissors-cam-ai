@@ -17,18 +17,17 @@
   gap: 150px;
   /*background-color: #DDECEE;*/
   padding-bottom: 20px;
-  padding-top: 20px;
+  padding-top: 200px;
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 20px;
 }
 
-.App-ai{
+.App-ai, .App-player {
   width: 50%;
-}
-
-.App-player{
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .App-versus{
@@ -54,7 +53,6 @@
     background-color: #F6EBDB;
     border-radius: 10px;
     color: #A91E23;
-    box-shadow: 4px 4px 12px rgba(246, 235, 219, 1); /* 👈 ombrage ici */
     cursor: pointer;
     transition: box-shadow 0.2s ease;
     border: none;
@@ -62,4 +60,36 @@
 
 .App-title-button:hover {
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 1); /* 👈 ombrage au survol */
+}
+
+
+/* Conteneur vidéo/IA */
+.video-container, .ai-container {
+  width: 320px;  /* Largeur fixe pour les deux */
+  height: 240px; /* Hauteur fixe pour les deux */
+  background-color: black;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-container video, .ai-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.emoji-overlay {
+  width: 60px;          /* Taille du carré */
+  height: 60px;
+  background-color: white;  /* Fond blanc */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;      /* Taille de l’emoji */
+  border-radius: 10px;  /* Coins arrondis */
+  margin-top: 10px;     /* Petit espace entre la vidéo et le carré */
+  border: 2px solid #11354D; /* Bordure pour mieux ressortir */
 }
