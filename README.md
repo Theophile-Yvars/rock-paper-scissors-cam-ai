@@ -1,10 +1,10 @@
-# 🎮 Rock Paper Scissors IA
+# Rock Paper Scissors IA
 
 Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur pour détecter les gestes de la main en temps réel.
 
 ![Screenshot du jeu](assets/20250621_2025_Pierre%20Feuille%20Ciseau%20IA_simple_compose_01jy9vq9yzfgxt5qbadzbvtmff.png)
 
-## 🎯 Fonctionnalités
+## Fonctionnalités
 
 - **Détection de gestes en temps réel** : Utilise MediaPipe pour reconnaître les gestes Pierre, Feuille, Ciseau
 - **Intelligence artificielle** : IA adversaire avec sélection aléatoire des coups
@@ -13,7 +13,7 @@ Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur p
 - **Collecte de données** : Interface Streamlit pour entraîner le modèle
 - **Machine Learning** : Réseau de neurones TensorFlow pour la classification
 
-## 🚀 Installation
+## Installation
 
 ### Prérequis
 
@@ -23,7 +23,7 @@ Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur p
 - Webcam fonctionnelle
 - Docker
 
-## 🎮 Utilisation
+## Utilisation
 
 ### 1. Collecte de données
 
@@ -62,7 +62,7 @@ cd app
 docker compose up
 ```
 
-## 🎲 Comment jouer
+## Comment jouer
 
 1. **Autoriser l'accès webcam** : Le navigateur vous demandera l'autorisation
 2. **Placer votre main** : Montrez votre geste devant la caméra
@@ -88,7 +88,7 @@ docker compose up
 - **Framework** : TensorFlow/Keras
 - **Régularisation** : Dropout (30%) et BatchNormalization
 
-## 📊 Données d'entraînement
+## Données d'entraînement
 
 Le modèle est entraîné sur :
 - **Format** : Fichiers CSV avec coordonnées des landmarks
@@ -97,7 +97,7 @@ Le modèle est entraîné sur :
 - **Augmentation** : Collecte interactive via Streamlit
 
 
-## 🔧 Développement
+## Développement
 
 ### Structure des API
 
@@ -106,4 +106,3 @@ Le modèle est entraîné sur :
   - Input : multipart/form-data avec fichier image
   - Output : `{"gesture": "pierre|feuille|ciseau"}`
 
-⭐ **N'oubliez pas de mettre une étoile si ce projet vous a plu !** ⭐
