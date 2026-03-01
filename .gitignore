@@ -29,3 +29,5 @@ __pycache__/
 Thumbs.db
 
 .env310
+
+.idea/
