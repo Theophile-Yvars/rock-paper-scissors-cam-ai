@@ -1,10 +1,10 @@
-# 🎮 Rock Paper Scissors IA
+# Rock Paper Scissors IA
 
 Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur pour détecter les gestes de la main en temps réel.
 
-![Screenshot du jeu](assets/20250621_2025_Pierre%20Feuille%20Ciseau%20IA_simple_compose_01jy9vq9yzfgxt5qbadzbvtmff.png)
+![Screenshot du jeu](assets/logo.jpeg)
 
-## 🎯 Fonctionnalités
+## Fonctionnalités
 
 - **Détection de gestes en temps réel** : Utilise MediaPipe pour reconnaître les gestes Pierre, Feuille, Ciseau
 - **Intelligence artificielle** : IA adversaire avec sélection aléatoire des coups
@@ -13,7 +13,7 @@ Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur p
 - **Collecte de données** : Interface Streamlit pour entraîner le modèle
 - **Machine Learning** : Réseau de neurones TensorFlow pour la classification
 
-## 🚀 Installation
+## Installation
 
 ### Prérequis
 
@@ -23,9 +23,11 @@ Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur p
 - Webcam fonctionnelle
 - Docker
 
-## 🎮 Utilisation
+# Utilisation
 
-### 1. Collecte de données
+## 1. Collecte de données
+
+![Screenshot du jeu](assets/image.png)
 
 Pour améliorer le modèle avec vos propres données :
 
@@ -39,7 +41,9 @@ cd training
 - Montrez votre geste devant la webcam
 - Cliquez sur "Enregistrer" pour sauvegarder
 
-### 2. Entraînement du modèle
+## 2. Entraînement du modèle
+
+![Screenshot du jeu](assets/matrice_de_confusion.png)
 
 ```powershell
 # Entraîner le modèle avec les nouvelles données
@@ -47,14 +51,18 @@ cd training
 python train_model.py
 ```
 
-### 3. Visualisation du model
+## 3. Visualisation du model
+
+![Screenshot du jeu](assets/training.png)
 
 ```powershell
 cd models
 .\run_test_model.bat
 ```
 
-### 4. Lancement de l'application 
+## 4. Lancement de l'application 
+
+![Screenshot du jeu](assets/game.png)
 
 ```bash
 cd app
@@ -62,7 +70,7 @@ cd app
 docker compose up
 ```
 
-## 🎲 Comment jouer
+## Comment jouer
 
 1. **Autoriser l'accès webcam** : Le navigateur vous demandera l'autorisation
 2. **Placer votre main** : Montrez votre geste devant la caméra
@@ -72,7 +80,7 @@ docker compose up
    - 📄 Feuille bat 🪨 Pierre  
    - ✂️ Ciseau bat 📄 Feuille
 
-## 🤖 Fonctionnement technique
+## Fonctionnement technique
 
 ### Pipeline de détection
 1. **Capture vidéo** : La webcam capture les images en temps réel
@@ -88,7 +96,7 @@ docker compose up
 - **Framework** : TensorFlow/Keras
 - **Régularisation** : Dropout (30%) et BatchNormalization
 
-## 📊 Données d'entraînement
+## Données d'entraînement
 
 Le modèle est entraîné sur :
 - **Format** : Fichiers CSV avec coordonnées des landmarks
@@ -97,7 +105,7 @@ Le modèle est entraîné sur :
 - **Augmentation** : Collecte interactive via Streamlit
 
 
-## 🔧 Développement
+## Développement
 
 ### Structure des API
 
@@ -106,4 +114,3 @@ Le modèle est entraîné sur :
   - Input : multipart/form-data avec fichier image
   - Output : `{"gesture": "pierre|feuille|ciseau"}`
 
-⭐ **N'oubliez pas de mettre une étoile si ce projet vous a plu !** ⭐
