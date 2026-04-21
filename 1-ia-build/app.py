@@ -105,16 +105,50 @@ with tab2:
                 
 # --- TAB 3 : TEST ---
 class TestProcessor(VideoProcessorBase):
-    def __init__(self): self.detector = get_detector(); self.model = tf.keras.models.load_model(MODEL_PATH) if os.path.exists(MODEL_PATH) else None
+    def __init__(self): 
+        self.detector = get_detector()
+        self.model = tf.keras.models.load_model(MODEL_PATH) if os.path.exists(MODEL_PATH) else None
+        
     def recv(self, frame):
         img = frame.to_ndarray(format="bgr24")
         if self.detector and self.model:
-            res = self.detector.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(img, cv2.COLOR_BGR2RGB)))
+            # Conversion pour Mediapipe
+            mp_img = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+            res = self.detector.detect(mp_img)
+            
             if res.hand_landmarks:
+                # Préparation des données pour le modèle
                 data = np.array([[lm.x, lm.y, lm.z] for lm in res.hand_landmarks[0]]).flatten().reshape(1, -1)
-                label = ["ciseau", "feuille", "pierre"][np.argmax(self.model.predict(data, verbose=0)[0])]
+                prediction = self.model.predict(data, verbose=0)
+                label = ["ciseau", "feuille", "pierre"][np.argmax(prediction[0])]
+                
+                # Affichage du texte sur le flux
                 cv2.putText(img, label, (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 4)
         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
 with tab3:
-    webrtc_streamer(key="test", video_processor_factory=TestProcessor, rtc_configuration=RTCConfiguration({"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}))
+    st.subheader("Test en temps réel")
+    
+    # CSS pour contraindre la largeur du flux webrtc et le centrer
+    st.markdown("""
+        <style>
+        [data-testid="stWebRTC"] {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # Colonnes pour centrer le flux
+    _, col_center, _ = st.columns([1, 2, 1])
+    
+    with col_center:
+        webrtc_streamer(
+            key="test", 
+            video_processor_factory=TestProcessor, 
+            rtc_configuration=RTCConfiguration({
+                "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+            })
+        )
