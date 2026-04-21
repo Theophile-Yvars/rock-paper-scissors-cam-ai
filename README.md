@@ -25,50 +25,40 @@ Un jeu de Pierre-Feuille-Ciseau intelligent utilisant la vision par ordinateur p
 
 # Utilisation
 
-## 1. Collecte de données
+## 1. Collecte de données & Entraînement du modèle & Visualisation du model
+
+```bash
+cd 1-ia-build
+./build.sh
+docker compose up
+```
 
 ![Screenshot du jeu](assets/image.png)
 
 Pour améliorer le modèle avec vos propres données :
 
-```powershell
-# Lancer l'interface de collecte
-cd training
-.\run_collect_data.bat
-```
-
 - Sélectionnez le geste à enregistrer (pierre, feuille, ciseau)
 - Montrez votre geste devant la webcam
 - Cliquez sur "Enregistrer" pour sauvegarder
 
-## 2. Entraînement du modèle
+### Matrice de confusion
 
 ![Screenshot du jeu](assets/matrice_de_confusion.png)
 
-```powershell
-# Entraîner le modèle avec les nouvelles données
-cd training
-python train_model.py
-```
-
-## 3. Visualisation du model
+### Test du model
 
 ![Screenshot du jeu](assets/training.png)
 
-```powershell
-cd models
-.\run_test_model.bat
-```
 
 ## 4. Lancement de l'application 
 
-![Screenshot du jeu](assets/game.png)
-
 ```bash
-cd app
+cd 2-app
 ./build-all.sh
 docker compose up
 ```
+
+![Screenshot du jeu](assets/game.png)
 
 ## Comment jouer
 
