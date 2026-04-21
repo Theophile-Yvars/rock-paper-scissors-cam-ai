@@ -1,8 +1,7 @@
-version: '3.8'
-
 services:
-  data-capture-app:
-    image: rps/data-capture:1.0.0
+  app:
+    image: rps/ia-build:1.0.0
+    tty: true
     ports:
       - "8501:8501"
     volumes:
@@ -10,13 +9,9 @@ services:
       - ../data:/app/data
     environment:
       - PYTHONUNBUFFERED=1
-  
-  training-app:
-    image: rps/training:1.0.0
-    ports:
-      - "8502:8501"
-    volumes:
-      - ../models:/app/models
-      - ../data:/app/data
-    environment:
-      - PYTHONUNBUFFERED=1
+    shm_size: '1gb'
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G

@@ -17,10 +17,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # --- CONFIGURATION ---
-MODEL_DIR = "../models"
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['OMP_NUM_THREADS'] = '1'
+MODEL_DIR = "models"
 MODEL_PATH = os.path.join(MODEL_DIR, "gesture_model.h5")
-DATA_DIR = "../data"
-LANDMARKER_PATH = '../models/hand_landmarker.task'
+DATA_DIR = "data"
+LANDMARKER_PATH = os.path.join(MODEL_DIR, "hand_landmarker.task")
 CONNECTIONS = [(0, 1), (1, 2), (2, 3), (3, 4), (0, 5), (5, 6), (6, 7), (7, 8), (5, 9), (9, 10), (10, 11), (11, 12), (9, 13), (13, 14), (14, 15), (15, 16), (13, 17), (0, 17), (17, 18), (18, 19), (19, 20)]
 
 os.makedirs(MODEL_DIR, exist_ok=True)
@@ -32,7 +35,7 @@ def get_detector():
     return vision.HandLandmarker.create_from_options(options)
 
 st.set_page_config(layout="wide")
-st.title("Rock-Paper-Scissors Cam AI ✋")
+st.title("Rock-Paper-Scissors Cam AI")
 tab1, tab2, tab3 = st.tabs(["📸 Data Capture", "⚙️ Training", "🎥 Test Model"])
 
 # --- TAB 1 : CAPTURE (50/50) ---
@@ -55,7 +58,7 @@ with tab1:
                 pts = [(int(lm.x * w), int(lm.y * h)) for lm in res.hand_landmarks[0]]
                 for s, e in CONNECTIONS: cv2.line(annotated, pts[s], pts[e], (0, 0, 255), 2)
                 for x, y in pts: cv2.circle(annotated, (x, y), 5, (0, 255, 0), -1)
-                st.image(cv2.cvtColor(annotated, cv2.COLOR_BGR2RGB), use_container_width=True)
+                st.image(cv2.cvtColor(annotated, cv2.COLOR_BGR2RGB), use_column_width=True)
                 if st.button("💾 Enregistrer"):
                     data = np.array([[lm.x, lm.y, lm.z] for lm in res.hand_landmarks[0]]).flatten()
                     pd.DataFrame([data]).to_csv(os.path.join(DATA_DIR, f"{gesture}_data.csv"), mode='a', index=False, header=False)
@@ -126,9 +129,27 @@ class TestProcessor(VideoProcessorBase):
                 cv2.putText(img, label, (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 4)
         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
+# --- TAB 3 : TEST ---
+class TestProcessor(VideoProcessorBase):
+    def __init__(self): 
+        self.detector = get_detector()
+        self.model = tf.keras.models.load_model(MODEL_PATH) if os.path.exists(MODEL_PATH) else None
+        
+    def recv(self, frame):
+        img = frame.to_ndarray(format="bgr24")
+        if self.detector and self.model:
+            mp_img = mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+            res = self.detector.detect(mp_img)
+            
+            if res.hand_landmarks:
+                data = np.array([[lm.x, lm.y, lm.z] for lm in res.hand_landmarks[0]]).flatten().reshape(1, -1)
+                prediction = self.model.predict(data, verbose=0)
+                label = ["ciseau", "feuille", "pierre"][np.argmax(prediction[0])]
+                cv2.putText(img, label, (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 4)
+        return av.VideoFrame.from_ndarray(img, format="bgr24")
+
 with tab3:
     st.subheader("Test en temps réel")
-    
     # CSS pour contraindre la largeur du flux webrtc et le centrer
     st.markdown("""
         <style>
@@ -150,5 +171,7 @@ with tab3:
             video_processor_factory=TestProcessor, 
             rtc_configuration=RTCConfiguration({
                 "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
-            })
+            }),
+            media_stream_constraints={"video": True, "audio": False},
+            async_processing=True
         )
